@@ -89,7 +89,6 @@ def computerMove(l1):
             
         if katta == 'X':
             options = [x for x in range(len(l1)) if type(l1[x]) != str]
-            print('shit')
             try:
                 l1[choice(options)] = "O"
             except:
