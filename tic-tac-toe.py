@@ -42,56 +42,61 @@ def printer(l1):
 
 def computerMove(l1):
     # horizontal
-    goldenPairs = {0: 3, 3: 6, 6: 9}
+    attackOrDefense = {'O':'X', 'X':"O"}
+    for katta in attackOrDefense: # now the computer can also win instead of playing defense only
+    
+        goldenPairs = {0: 3, 3: 6, 6: 9}
 
-    for key in goldenPairs:
-        if (
-            l1[key : goldenPairs[key]].count("X") == 2
-            and "O" not in l1[key : goldenPairs[key]]
-        ):
-            for i in l1[key : goldenPairs[key]]:
-                if type(i) == int:
-                    l1[l1.index(i)] = "O"
-                    printer(l1)
-                    return
-            break
+        for key in goldenPairs:
+            if (
+                l1[key : goldenPairs[key]].count(katta) == 2
+                and attackOrDefense[katta] not in l1[key : goldenPairs[key]]
+            ):
+                for i in l1[key : goldenPairs[key]]:
+                    if type(i) == int:
+                        l1[l1.index(i)] = "O"
+                        printer(l1)
+                        return
+                break
 
-    # vertical
+        # vertical
 
-    for strt in range(1, 4):
-        verticalList = [l1[strt], l1[strt + 2], l1[strt + 5]]
+        for strt in range(0, 3):
+            verticalList = [l1[strt], l1[strt + 3], l1[strt + 6]] # Corrected incoreect logic 
 
-        if verticalList.count("X") == 2 and "O" not in verticalList:
-            for i in verticalList:
-                if type(i) == int:
-                    l1[verticalList.index(i) * 3] = "O"
-                    printer(l1)
-                    return
-            break
+            if verticalList.count(katta) == 2 and attackOrDefense[katta] not in verticalList:
+                for i in verticalList:
+                    if type(i) == int:
+                        # l1[verticalList.index(i) * 3] = "O"
+                        l1[i-1] = "O"
+                        printer(l1)
+                        return
+                break
 
-    # diagonal
+        # diagonal
 
-    diagonals = [[0, 4, 8], [2, 4, 6]]
+        diagonals = [[0, 4, 8], [2, 4, 6]]
 
-    for diagonal in diagonals:
-        items = [l1[diagonal[i]] for i in range(3)]
-        if items.count("X") == 2 and "O" not in items:
-            for i in items:
-                if type(i) == int:
-                    l1[l1.index(i)] = "O"
-                    printer(l1)
-                    return
-            break
-    else:
-        options = [x for x in range(len(l1)) if type(l1[x]) != str]
-        print('shit')
-        try:
-            l1[choice(options)] = "O"
-        except:
-            print("This is a draw")
-            return True
+        for diagonal in diagonals:
+            items = [l1[diagonal[i]] for i in range(3)]
+            if items.count(katta) == 2 and attackOrDefense[katta] not in items:
+                for i in items:
+                    if type(i) == int:
+                        l1[l1.index(i)] = "O"
+                        printer(l1)
+                        return
+                break
+            
+        if katta == 'X':
+            options = [x for x in range(len(l1)) if type(l1[x]) != str]
+            print('shit')
+            try:
+                l1[choice(options)] = "O"
+            except:
+                print("This is a draw")
+                return True
 
-        printer(l1)
+            printer(l1)
 
 
 won, draw = False, False
