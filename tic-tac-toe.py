@@ -88,12 +88,16 @@ def computerMove(l1):
                 break
             
         if katta == 'X':
-            options = [x for x in range(len(l1)) if type(l1[x]) != str]
-            try:
-                l1[choice(options)] = "O"
-            except:
-                print("This is a draw")
-                return True
+            if l1.count('X') == 1:
+                l1[4] = 'O'
+                
+            else:
+                options = [x for x in range(len(l1)) if type(l1[x]) != str]
+                try:
+                    l1[choice(options)] = "O"
+                except:
+                    print("This is a draw")
+                    return True
 
             printer(l1)
 
