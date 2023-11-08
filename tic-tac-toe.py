@@ -88,7 +88,7 @@ def computerMove(l1):
                 break
             
         if katta == 'X':
-            if l1.count('X') == 1:
+            if l1.count('X') == 1 and l1[4] != 'X':
                 l1[4] = 'O'
                 
             else:
